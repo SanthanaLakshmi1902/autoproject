@@ -1,0 +1,131 @@
+ultrasonic semsor code
+
+int trigPin = 15;
+int echoPin = 2;
+long duration;
+int distance;
+
+void setup() {
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  duration = pulseIn(echoPin, HIGH);
+  distance = duration / 58.2;
+  Serial.print("Distance: ");
+  Serial.print(distance);
+  Serial.println(" cm");
+  delay(100);
+}
+ultrasonic sensor with led
+int trigPin = 15;
+int echoPin = 2;
+int ledPin = 5;
+long duration;
+int distance;
+int THRESHOLD = 10;
+
+void setup() {
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+  pinMode(ledPin,OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  duration = pulseIn(echoPin, HIGH);
+  distance = 0.017*duration;
+  if (distance < THRESHOLD)
+  digitalWrite(ledPin, HIGH);
+  else 
+  digitalWrite(ledPin,LOW);
+  Serial.print("Distance: ");
+  Serial.print(distance);
+  Serial.println(" cm");
+  delay(100);
+}
+
+ldr sensor
+
+int ldrpin=34;
+int ldrvalue=0;
+int ledPin = 5;
+long duration;
+int distance;
+int THRESHOLD = 50;
+void setup()
+{
+  pinMode(ldrpin,INPUT);
+  pinMode(ledPin,OUTPUT);
+  Serial.begin(9600);
+}
+void loop()
+{
+  ldrvalue=analogRead(ldrpin);
+  duration = pulseIn(ldrvalue, HIGH);
+  distance = 0.017*duration;
+  if (distance < THRESHOLD)
+  digitalWrite(ledPin, HIGH);
+  else 
+  digitalWrite(ledPin,LOW);
+  Serial.print("LDR reading=");
+  Serial.print(ldrvalue);
+  delay(2000);
+}
+
+overall code
+int trigPin = 14;
+int echoPin = 12;
+int ledPin = 13;
+int ldrpin=34;
+int ldrvalue=0;
+long duration;
+int distance;
+long duration1;
+int distance1;
+int THRESHOLD = 100;
+
+
+void setup() {
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+  pinMode(ldrpin,INPUT);
+  pinMode(ledPin,OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  duration = pulseIn(echoPin, HIGH);
+  distance= 0.017*duration;
+  if (distance< THRESHOLD)
+  digitalWrite(ledPin, HIGH);
+  else 
+  digitalWrite(ledPin,LOW);
+  Serial.print("Distance: ");
+  Serial.print(distance);
+  Serial.println(" cm");
+  delay(1000);
+  ldrvalue=analogRead(ldrpin);
+  duration1=pulseIn(ldrvalue, HIGH);
+  distance1= 0.017*duration;
+  if (distance1< THRESHOLD)
+  digitalWrite(ledPin, HIGH);
+  else 
+  digitalWrite(ledPin,LOW);
+  Serial.print("LDR reading=");
+  Serial.print(distance1);
+  delay(1000);
+}
